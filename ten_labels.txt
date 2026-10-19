@@ -1,0 +1,11 @@
+text,label,note
+Walmart has a 2tb Western digital on rollback. Check in store.,suggest,
+SD cards are too expensive now too,other,
+Buy a wireview pro 2,suggest,
+Don't.,suggest,
+"If you don't need CUDA, buy AMD one",suggest,
+1440p OLED all day,other,
+Winix 5510 or 5520.,other,
+What is your current system that you're scavenging from?,other,
+Full rebuild? 10ish years or so. Components as I can/required.,experience,
+"Currently unavailable, 550 for “newer” model.",other,

@@ -48,17 +48,17 @@
 
 ### `suggest`
 
-**Definition:** The comment explicitly tells OP what to buy, do, or check, including as a question ("Have you tried a different cable?").
+**Definition:** The comment points OP directly to something to buy, do, check, or try, whether stated as an instruction, as soft phrasing ("you can find...", "maybe look for..."), or as a question ("Have you tried a different cable?").
 
 **Example 1:**
-> Do NOT get the 730. If you're on a super low budget you should be able to find another 1660 super for below $100. Otherwise upgrade.
+> Do NOT get the 730. If you’re on a super low budget you should be able to find another 1660 super for below $100. Otherwise upgrade.
 
 **Example 2:**
 > Keep it in the box.
 
 ### `experience`
 
-**Definition:** The comment is about the writer's own situation or reaction, with no explicit instruction to OP.
+**Definition:** The comment is about the writer's own situation or a sincere reaction (including toward OP), with no instruction to OP.
 
 **Example 1:**
 > I replaced my 1660s last year for a 5060
@@ -68,7 +68,7 @@
 
 ### `other`
 
-**Definition:** Anything that is neither of the above: questions that ask OP for information, jokes, one-word replies, bare product names, and general claims that aren't about the writer.
+**Definition:** Anything that is neither of the above: questions that ask OP for information, jokes and sarcasm, one-word answers, bare product names, and general claims about hardware or prices that aren't about the writer.
 
 **Example 1:**
 > What's your budget?
@@ -78,12 +78,15 @@
 
 ### The hardest boundary
 
-**Which two labels:** `suggest` vs `experience`
+**Which two labels:** `suggest` vs `experience` (with `suggest` vs `other` close behind)
 
 **The decision rule I used every time:**
-1. A comment counts as `suggest` only if it contains an explicit instruction to OP, meaning an imperative ("Buy...", "Check...", "Avoid...") or "you should/need to". A bare product name or a statement that only implies a recommendation does not count.
-2. If a comment is both explicit advice and the writer's own experience, it is `suggest`. Example: "Save for 4K OLED. Best PC purchase I've ever made."
-3. A question-form suggestion is `suggest`. A question that only asks OP for information is `other`.
+Apply these in order:
+1. If the comment points OP to something to buy, do, check, or try, it is `suggest`. This covers imperatives ("Buy...", "Avoid..."), "you should/need to," soft phrasing ("you can find...", "maybe look for..."), and question-form suggestions ("undervolting?"). It does not cover a bare product name ("7900 xt"), a statement that only implies a recommendation, or a snarky imperative that isn't advice ("Wait till you need what was a $200 20tb drive...").
+2. If a comment is both advice and the writer's own experience, it is `suggest`. Example: "Save for 4K OLED. Best PC purchase I've ever made."
+3. A question that asks OP for information ("What's your budget?") is `other`, even though it's a question.
+4. If there is no pointer to OP, a comment about the writer's own situation or a sincere reaction is `experience`.
+5. Everything else is `other`: jokes and sarcasm, bare product names, and general claims that aren't about the writer.
 
 ---
 
