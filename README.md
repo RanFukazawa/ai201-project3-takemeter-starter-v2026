@@ -92,48 +92,46 @@ Apply these in order:
 
 ## The Dataset
 
-<!-- Where you collected from, how you labelled, your counts, and three hard
-     cases. -->
+**Where the posts came from:** 200 public comments from r/buildapc, collected across 19 threads. I chose threads to cover the subreddit's main flairs: Discussion, Build Help, Build Upgrade, and Troubleshooting. Topics included PC upgrade timing, RAM and SSD prices, GPU choices (e.g. RTX 3060 vs 5060), dust and cooling, and a failed GPU. I collected comments only, not original posts, by [r/buildapc](https://www.reddit.com/r/buildapc/) on 10/18/2026.
 
-**Where the posts came from:**
-
-**How I labelled them:** <!-- Cold first? Pre-labelled with AI and corrected?
-Say so plainly — the disclosure is required, not penalised. -->
+**How I labelled them:**
+1. **Cold labels (20 rows, `note` = `cold`).** I labelled 20 comments first, using only my written definitions, with no AI help. I picked them from comments I hadn't used to draft the rules.
+2. **Hand-labelled development set (50 rows, `note` = `dev`).** I labelled 50 comments myself. I used these to find where my definitions were ambiguous, and I revised the rules several times in conversation with Claude, which pointed out contradictions in my labels. The rules were shaped partly by these 50, so I treat them differently from the rest in the next unit.
+3. **AI pre-labelled and checked (130 rows, `note` = `prelabel`).** I gave Claude my final definitions and decision rules and asked it to label the remaining 130 comments in three batches. I read every row, decided my own label, and compared it to Claude's. 
 
 **Counts per label:**
 
 | Label | Count | Share |
 |---|---|---|
-|  |  |  |
-|  |  |  |
-|  |  |  |
-| **Total** |  | 100% |
+| `suggest` | 72 | 36.0% |
+| `experience` | 49 | 24.5% |
+| `other` | 79 | 39.5% |
+| **Total** | 200 | 100% |
+
+No label is above the 70% cap. `other` mixes several kinds of comment: information-seeking questions, jokes and sarcasm, bare product names, and general claims about hardware or prices. I expect it to be the hardest label for the model.
 
 **Three hard cases**
 
-<!-- Any post that made you pause: what it was, which two labels it could have
-     been, and what you chose. These are worth more than the easy 190. -->
-
 **1.**
-> *The post:*
+> *The post:* "Save for 4K OLED. Best PC purchase I've ever made."
 >
-> *Could have been:*
+> *Could have been:* `suggest` or `experience`
 >
-> *I chose, because:*
+> *I chose* `suggest`*, because* it contains an explicit instruction ("Save for..."), and my rule says a comment that is both advice and the writer's own experience is `suggest`. Without the first sentence it would have been `experience`.
 
 **2.**
-> *The post:*
+> *The post:* "Wait till you need what was a $200 20tb drive..."
 >
-> *Could have been:*
+> *Could have been:* `suggest` or `other`
 >
-> *I chose, because:*
+> *I chose* `other`*, because* it has the form of an imperative, but it doesn't tell OP to buy, do, check, or try anything. It's a sarcastic warning, and my rule excludes snarky imperatives that aren't advice.
 
 **3.**
-> *The post:*
+> *The post:* "7900 xt"
 >
-> *Could have been:*
+> *Could have been:* `suggest` or `other`
 >
-> *I chose, because:*
+> *I chose* `other`*, because* it names a product and probably answers OP's question, but it contains no instruction, and my rule says a bare product name or implied recommendation doesn't count as `suggest`. The cost is that the model can't tell this apart from a comment that merely mentions a card, and I found it hard to apply this rule consistently to short answers.
 
 ---
 

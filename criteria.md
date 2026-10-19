@@ -51,63 +51,53 @@ whether you hit them:
 
 ---
 
-## 1.
+## 1. Overall accuracy
 
-<!-- Your criterion. It must name a number. -->
+Overall accuracy on the held-out test set is at least 0.60 on each of the three seeds.
 
+**Why this target:** Always guessing my biggest label (`other`, about 40% of my rows) would get about 0.40, so 0.60 is clearly above guessing. With about 30 test rows, 0.60 is 18 correct. I did not go higher because I train on only about 140 rows and my own labels are fuzzy at the boundaries (I agreed with an AI labeller on 8 of 10 unseen rows), so I can't expect the model to be more consistent than I am.
 
-
-**Why this target:**
-
-
+<!-- Verify by: open results.json, read accuracy for each seed, and check that the lowest is at least 0.60. -->
 
 ---
 
-## 2.
+## 2. `other` performance
 
-<!-- Your criterion. -->
+`other` has an F1 of at least 0.60 on the held-out test set on each of the three seeds.
 
+**Why this target:** `other` is my biggest label, so always guessing it already gets an F1 of about 0.57. This target is only slightly above that. I accept a target this close because `other` mixes jokes, bare product names, general claims about hardware and prices, and questions that ask OP for information, so there is no single pattern for the model to learn.
 
-
-**Why this target:**
-
-
+<!-- Verify by: open results.json, read the per-label F1 for `other` on each seed, and check that the lowest is at least 0.60. -->
 
 ---
 
-## 3.
+## 3. `experience` performance
 
-<!-- Your criterion. -->
+`experience` has an F1 of at least 0.50 on the held-out test set on each of the three seeds.
 
+**Why this target:** `experience` is my smallest label (49 of 200 rows, about 7 in the test split), so one wrong row moves its F1 a lot between seeds. That is why I set it below my 0.60 target for `other`. Always guessing `experience` would get about 0.39, so 0.50 is clearly above guessing. This label also sits on my hardest boundary with `suggest`, where implied-advice comments are easy to confuse.
 
-
-**Why this target:**
-
-
+<!-- Verify by: open results.json, read the per-label F1 for `experience` on each seed, and check that the lowest is at least 0.50. -->
 
 ---
 
-## 4.
+## 4. Boundary confusion
 
-<!-- Your criterion. -->
+Of the test rows whose true label is `experience`, no more than 40% are predicted as `suggest`.
 
+**Why this target:** `suggest` vs `experience` is the hardest boundary in my taxonomy, and implied-advice comments like "I replaced X and it fixed it" sit on it. With about 7 `experience` test rows, 40% means at most 2 rows can be predicted as `suggest`, and a third row fails the target. I made this stricter than criterion 3 implies, because an F1 of 0.50 alone would still allow up to about two-thirds of `experience` rows to be missed.
 
-
-**Why this target:**
-
-
+<!-- Verify by: build a confusion matrix from the model's predictions and test_split.csv, read the `experience` row, and check that the share predicted as `suggest` is at most 40%. -->
 
 ---
 
-## 5.
+## 5. Consistency
 
-<!-- Your criterion. -->
+When I label the 30 staff posts using only the staff definitions, my labels agree with staff labels on at least 70% of them (21 of 30).
 
+**Why this target:** With three labels, chance agreement is about 33 to 40%. One post is about 3 points. The staff instructions say that a rate in the 70s is normal because several of the posts were picked for being ambiguous, so 70% is at the low end of what staff expect. This measures whether I can apply a written rule I didn't write, which is the same skill my own 200 labels depend on.
 
-
-**Why this target:**
-
-
+<!-- Verify by: run `python agreement.py` on my_staff_labels.csv and staff_labels.csv and read the agreement rate. -->
 
 ---
 
