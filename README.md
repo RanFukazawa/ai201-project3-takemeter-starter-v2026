@@ -42,47 +42,48 @@
 <!-- Your community, and what your classifier sorts posts into. Three or four
      sentences. -->
 
-
-
 ---
 
 ## Label Taxonomy
 
-<!-- Each label: a one-sentence definition and two real examples from your
-     reading. Then your decision rule for the hardest boundary.
+### `suggest`
 
-     The decision rule is worth a point on its own and it's the thing most
-     people leave out. Every taxonomy has a hardest boundary. Name yours. -->
-
-### `label_one`
-
-**Definition:**
+**Definition:** The comment explicitly tells OP what to buy, do, or check, including as a question ("Have you tried a different cable?").
 
 **Example 1:**
->
+> Do NOT get the 730. If you're on a super low budget you should be able to find another 1660 super for below $100. Otherwise upgrade.
 
 **Example 2:**
->
+> Keep it in the box.
 
-### `label_two`
+### `experience`
 
-**Definition:**
+**Definition:** The comment is about the writer's own situation or reaction, with no explicit instruction to OP.
 
 **Example 1:**
->
+> I replaced my 1660s last year for a 5060
 
 **Example 2:**
->
+> I had it on the desk and that was even worse
+
+### `other`
+
+**Definition:** Anything that is neither of the above: questions that ask OP for information, jokes, one-word replies, bare product names, and general claims that aren't about the writer.
+
+**Example 1:**
+> What's your budget?
+
+**Example 2:**
+> lol, welcome back to the world, i hope your time spent under a rock was relaxing.
 
 ### The hardest boundary
 
-**Which two labels:**
+**Which two labels:** `suggest` vs `experience`
 
 **The decision rule I used every time:**
-<!-- e.g. "If the post names a specific checkable fact, it's `analysis`, even
-     if the tone is heated." -->
-
-
+1. A comment counts as `suggest` only if it contains an explicit instruction to OP, meaning an imperative ("Buy...", "Check...", "Avoid...") or "you should/need to". A bare product name or a statement that only implies a recommendation does not count.
+2. If a comment is both explicit advice and the writer's own experience, it is `suggest`. Example: "Save for 4K OLED. Best PC purchase I've ever made."
+3. A question-form suggestion is `suggest`. A question that only asks OP for information is `other`.
 
 ---
 
