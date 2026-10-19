@@ -39,8 +39,8 @@
 
 ## What This Does
 
-<!-- Your community, and what your classifier sorts posts into. Three or four
-     sentences. -->
+TakeMeter sorts comments from r/buildapc, a public subreddit where people ask for and give advice on PC parts. It reads one comment and labels it `suggest` (it points the original poster to something to buy, do, check, or try), `experience` (it is about the commenter's own situation or a sincere reaction), or `other` (questions asking for information, jokes, bare product names, and general claims). The goal is to tell advice apart from personal stories and noise in a help-heavy community. I labelled 200 comments from 19 threads and fine-tuned a small model on them.
+
 
 ---
 
@@ -137,44 +137,44 @@ No label is above the 70% cap. `other` mixes several kinds of comment: informati
 
 ## The Training Run
 
-<!-- Your starting model, your settings, and anything you changed and why. -->
+**Starting model:** `distilbert-base-uncased`, fine-tuned for three-way text classification (`suggest`, `experience`, `other`).
 
-**Base model:**
+**Settings (all notebook defaults, nothing changed):**
 
-**Settings:** <!-- epochs, learning rate, batch size, seed -->
+| Setting | Value |
+|---|---|
+| Epochs | 3 |
+| Learning rate | 2e-5 |
+| Batch size | 16 |
+| Max tokens per post | 128 |
+| Seed | 42 |
+| Split | 70/15/15, stratified by label (140 train, 30 validation, 30 test) |
 
-**Anything I changed from the defaults, and why:**
+**Hyperparameters I changed and why:** None. I used the defaults because this unit treats hyperparameters as vocabulary, and my first run is the baseline for unit 6.
 
-**Split sizes:** <!-- train / val / test, and per-label counts in the test
-split. If a label had fewer than about 8 in test, say so — it explains a lot
-of next unit's variance. -->
+**What I trained on:** Apple Silicon GPU (`mps`), torch 2.14.1, recorded in `results.json`. Different hardware does the arithmetic in a slightly different order, so someone running this on `cuda` or `cpu` with the same seed could get slightly different numbers.
 
+**Thin label in the test split:** `experience` has only 7 of the 30 test examples (`suggest` has 11 and `other` has 12), which is below the notebook's threshold of about 8. One wrong `experience` row moves its recall by about 14 points, so I expect its metrics to move a lot between seeds. I'll read any `experience` score in unit 6 with that in mind.
 
+**Files this run produced:** `results.json` and `test_split.csv`, both committed. The baseline in unit 6 will be scored on the same 30 posts.
 
 ---
 
 ## How I Used AI
 
-<!-- Two specific moments — what you asked, what came back, what you changed.
+**Moment 1: Finding out my first labels were broken**
 
-     ⚠️ Plus disclosure of any pre-labelling. If you had a model pre-label a
-     batch and then read and corrected every one, say that. It's an allowed
-     workflow and disclosing it costs you nothing. Not disclosing it is the
-     problem. -->
+- *What I asked for:* I sorted 40 sampled comments into four buckets from my reading (suggestion/advice, clarifying question, experience/empathy/agreement, disagreement) and asked Claude to check my tally.
+- *What came back:* Claude pointed out that my buckets mixed two things (what a comment does, and how it relates to the comment it replies to), that "disagreement" and "clarifying question" were too thin to measure (2 and 4 of 40), and that I had labelled similar comments inconsistently, such as three troubleshooting questions that went two different ways.
+- *What I changed:* I dropped the four buckets and tried a two-label version based on whether a comment names a specific detail. When I found that rule was just a keyword test, I switched to labelling by what a comment does, which gave `suggest`, `experience`, and `other`. 
 
-**Moment 1**
+**Moment 2: Testing my rules on comments I hadn't used**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* I wrote my label definitions and decision rules, picked 10 comments I had not looked at, labelled them, and asked Claude to label the same 10 using only my written rules, without seeing my answers.
+- *What came back:* We agreed on 8 of 10. The two disagreements were "Don't." (I labelled `other`, Claude `suggest`) and "Currently unavailable, 550 for 'newer' model." (I labelled `experience`, Claude `other`). Claude also showed that several rows in my 40 broke my own rules.
+- *What I changed:* I decided that "Don't." is a bare directive and should be `suggest`, like "Neither." and "Keep it in the box," and that the "Currently unavailable" comment is a market fact and should be `other`. I kept `experience` narrow rather than widening it. I then re-labelled the 40 under my final rules and wrote the soft-phrasing and question-form rules into my README. [Add anything you disagreed with Claude about, if anything.]
 
-**Moment 2**
-
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
-
-**Pre-labelling disclosure:**
+**Pre-labelling disclosure:** I labelled 20 comments cold, using only my written definitions, with no AI or other tools (`note` = `cold`). I labelled another 50 myself (`note` = `dev`), but my rules were revised through discussion with Claude while I did, so those 50 shaped the definitions and I treat them separately from the cold rows. The remaining 130 comments were pre-labelled by Claude in three batches of 40, 40, and 50 (`note` = `prelabel`). For each batch I gave Claude my final definitions and decision rules. Claude returned a label and a confidence level for every row and flagged the ambiguous ones. I then read every comment, made my own call, and compared. I did not change the labels that Claude marked. I also used Claude to review my acceptance-criteria drafts and to suggest a range for each target, and to help draft parts of this README. The criteria, the numbers I committed, and the label definitions are my own decisions.
 
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 

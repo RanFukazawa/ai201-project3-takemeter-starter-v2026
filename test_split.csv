@@ -1,10 +1,31 @@
 text,label,note
-Just signed up for my first marathon and I'm equal parts excited and terrified.,reaction,provided practice data
-A sub-3 marathon is more impressive than most people's entire athletic career and runners undersell it constantly.,hot_take,provided practice data
-Got my entry! Been refreshing that page for forty minutes.,reaction,provided practice data
-Just watched someone in a full costume run past me at mile 20 and I've never felt worse about myself.,reaction,provided practice data
-Anyone running more than 60 miles a week without a coach is just accumulating injuries on a schedule.,hot_take,provided practice data
-"Split the field by finish time and looked at DNF rates. Under 3:30, about 1%. Over 5 hours, about 9%. The cutoff is at 6 hours and the aid stations start closing at 5:15, which might explain more of that than fitness does.",analysis,provided practice data
-Super shoes have ruined amateur racing. Times mean nothing now and everyone knows it.,hot_take,provided practice data
-Six of the last eight course records here were set in years when race-day temperature was under 10C. The two exceptions were both years with a strong tailwind on the back half. Weather explains more of the record book than the field does.,analysis,provided practice data
-The women's field here has grown 60% in five years while the men's is flat. That's the actual story of this race and nobody writes about it.,analysis,provided practice data
+Industry predictors are saying 2030 at the very earliest. OP's friend just doesn't realise how bad things are,other,cold
+I had 4k ips and changed to 1440p 240 qd oled best decision,experience,dev
+"Avoid the i9s, don't buy second-hand, run the latest BIOS and you will be fine. If you look at old benchmarks just subtract ~10% to see what the actual performance will be like. They're still pretty performant chips that will handle every game on the planet fairly comfortably.",suggest,dev
+Winter means different things in different places. No one is able to offer advice without location climate information.,other,prelabel
+"Big if's here, but if you can stretch it and you're near a MC, I'd try to snag a 9070xt. Still priced at low 700's, they've announced an msrp bump, and for buying new it's pretty much as good as it gets for a while.",suggest,prelabel
+The 3060 is weaker to the point it won't be able to run the games that need the extra vram anyways. I would go 5060 no question.,suggest,prelabel
+undervolting?,suggest,dev
+Have a dehumidifier in their snd and you should be fine,suggest,cold
+Because it's not as easy to make as 16 and 32. They usually make it based on the binay/base 2 numbering system. So I goes 1 2 4 8 16 32 64....,other,prelabel
+Walmart has a 2tb Western digital on rollback. Check in store.,suggest,dev
+I'll take a different approach than a lot of the commenters. Who would make them. The companies making ram are essentially selling out their inventory to AI data centers. We are getting just the leftovers hence the insane prices.,other,prelabel
+"Condensation kills electronics. Yes, keeping your PC in a sub-freezing environment with freeze-thaw-heated up when powered on cycles happening could kill your PC.",other,prelabel
+Good thing you researched this first huh,experience,cold
+I upgraded my 10 yr old PC earlier this year; I wasn't planning on it until maybe next year. It was freaking expensive but now the ram has doubled since! I bit the bullet and its going to get a lot worse before it gets better,experience,prelabel
+"DISM.exe /Online /Cleanup-image /Restorehealth Sfc/scannow Run it with admin privileges. Windows 11 sucks, run these commands regularly. Update all your drivers, including your optional drivers. Do not forget to install 3rd party driver apps like Nvidia app or Samsung magician. Optimize your storage, and verify your drive health.",suggest,cold
+"Currently unavailable, 550 for “newer” model.",other,dev
+I am also an “upgrade once a decade” guy and I’ve been looking into rtx 5080 and 9070 xt. The connector of the 5080 is really scaring me and looks like might mess up my “upgrade ten years later” plan. Think I’m gonna settle for 9070 xt.,experience,prelabel
+"11th & 12th Gen CPU's are fast, super solid options, AMD is 'cool' but 11/12th gen intel's are super solid.",other,prelabel
+Even this doesn't prevent it.,other,prelabel
+If you’re near a Microcenter you should be able to build a 7500x3d machine with a 9070 or 9070xt for that budget. That would easily carry you for the next 5 years.,suggest,prelabel
+Prices aren't coming down. Maybe 2029.,other,prelabel
+"No idea why people's first reaction is dust/temps. It's more likely windows, new drivers or some other software is causing this.",other,prelabel
+Wait till you need what was a $200 20tb drive...,other,dev
+What games you playing? I have 0 issues playing CS2 on 1 ram stick of 16gb.,experience,prelabel
+I’d look at the arrangement of your fans. If you more fans “sucking in” you’ll have positive pressure - this will help keep dust out. On the other hand if you more fans “blowing out” this means negative pressure so you end up sucking in dust (through gaps in the case as well),suggest,prelabel
+It’s the worst time… so far,other,cold
+The 5700x3D is about 10% slower than the 5800x3D but you paid 33% less. Good deal.,experience,prelabel
+"Check your temps and also your storage. Also check your background tasks, could be something hogging resurces",suggest,prelabel
+I got my 5070 at 489. Theres no way I'd buy it for 800 let alone a ti for 1300. That said my card plays on ultra 1440 on all my games.,experience,prelabel
+"i think you can find a 9070 for 600$. Otherwise 9060xt 16GB, 9070 GRE or 4070 super",suggest,dev
