@@ -5,6 +5,6 @@
 #
 # Delete the examples below and put yours in.
 
-analysis: makes an argument backed by a specific, checkable fact
-hot_take: a confident claim with no support offered
-reaction: an immediate response to something that just happened
+suggest: The comment points OP directly to something to buy, do, check, or try, whether stated as an instruction, as soft phrasing ("you can find...", "maybe look for..."), or as a question ("Have you tried a different cable?").
+experience: The comment is about the writer's own situation or a sincere reaction (including toward OP), with no instruction to OP.
+other: Anything that is neither of the above: questions that ask OP for information, jokes and sarcasm, one-word answers, bare product names, and general claims about hardware or prices that aren't about the writer.
