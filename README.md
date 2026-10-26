@@ -172,7 +172,7 @@ No label is above the 70% cap. `other` mixes several kinds of comment: informati
 
 - *What I asked for:* I wrote my label definitions and decision rules, picked 10 comments I had not looked at, labelled them, and asked Claude to label the same 10 using only my written rules, without seeing my answers.
 - *What came back:* We agreed on 8 of 10. The two disagreements were "Don't." (I labelled `other`, Claude `suggest`) and "Currently unavailable, 550 for 'newer' model." (I labelled `experience`, Claude `other`). Claude also showed that several rows in my 40 broke my own rules.
-- *What I changed:* I decided that "Don't." is a bare directive and should be `suggest`, like "Neither." and "Keep it in the box," and that the "Currently unavailable" comment is a market fact and should be `other`. I kept `experience` narrow rather than widening it. I then re-labelled the 40 under my final rules and wrote the soft-phrasing and question-form rules into my README. [Add anything you disagreed with Claude about, if anything.]
+- *What I changed:* I decided that "Don't." is a bare directive and should be `suggest`, like "Neither." and "Keep it in the box," and that the "Currently unavailable" comment is a market fact and should be `other`. I kept `experience` narrow rather than widening it. I then re-labelled the 40 under my final rules and wrote the soft-phrasing and question-form rules into my README. 
 
 **Pre-labelling disclosure:** I labelled 20 comments cold, using only my written definitions, with no AI or other tools (`note` = `cold`). I labelled another 50 myself (`note` = `dev`), but my rules were revised through discussion with Claude while I did, so those 50 shaped the definitions and I treat them separately from the cold rows. The remaining 130 comments were pre-labelled by Claude in three batches of 40, 40, and 50 (`note` = `prelabel`). For each batch I gave Claude my final definitions and decision rules. Claude returned a label and a confidence level for every row and flagged the ambiguous ones. I then read every comment, made my own call, and compared. I did not change the labels that Claude marked. I also used Claude to review my acceptance-criteria drafts and to suggest a range for each target, and to help draft parts of this README. The criteria, the numbers I committed, and the label definitions are my own decisions.
 
@@ -220,7 +220,9 @@ Trained on Apple Silicon GPU (`mps`), torch 2.14.1, `distilbert-base-uncased`, d
 | 2. `other` F1 | at least 0.60 on every seed | 0.727 | 0.545 | 0.615 | Missed (seed 7 is 0.545) |
 | 3. `experience` F1 | at least 0.50 on every seed | 0.000 | 0.000 | 0.000 | Missed (0.000 on all seeds) |
 | 4. True `experience` predicted as `suggest` | at most 40% | 28.6% (2 of 7) | 71.4% (5 of 7) | 57.1% (4 of 7) | Missed (holds on 1 of 3 seeds) |
-| 5. Agreement on staff posts | at least 70% | not measured yet | not measured yet | not measured yet | Pending (staff agreement check) |
+| 5. Agreement on staff posts | at least 70% (21 of 30) | 63% (19 of 30) | n/a, single measurement | n/a, single measurement | Missed (2 posts short of 21) |
+
+Criterion 5 is measured once, against the fixed 30 staff posts (`agreement_results.json`), so it has no per-seed values.
 
 ### Spread across seeds
 
@@ -283,7 +285,7 @@ In seed 42, 5 real `experience` posts were called `other` and 0 real `other` pos
      data/staff_taxonomy.md, not your own — so every argument below is made
      from those definitions and those decision rules. -->
 
-**Agreement rate:** ___ / 30 = ___%
+**Agreement rate:** 19 / 30 = 63%
 
 <!-- Nobody grades this number. A 60% who argues every disagreement from the
      stated rules beats a 95% who wrote "staff was right" nine times. Several
@@ -306,24 +308,106 @@ In seed 42, 5 real `experience` posts were called `other` and 0 real `other` pos
      what you did across your own 200. -->
 
 **1.**
-> *The post:*
+> *The post:* "Ran the same loop in 4C and in 24C within a fortnight, same effort by heart rate. 90 seconds slower in the heat over six miles. People keep saying heat costs you 'a bit' and it's more than that."
 >
-> *Staff said / I said:*
+> *Staff said / I said:* `analysis` / `hot_take`
 >
-> *My call, and why:*
+> *My call, and why:* I labelled it `hot_take` because the last sentence ("People keep saying heat...") sounded like a general claim, but I agreed the first two sentences are checkable facts. Staff is right. Rule 1 asks whether the fact carries the argument, and here the 90-second comparison is the reason for "it's more than a bit." A concluding sentence is part of any argument and doesn't turn it into a `hot_take`. The rule doesn't say whether one runner's own times count as checkable, but its list includes "a time," so I should have followed it.
 >
-> *Which pile:*
+> *Which pile:* (a) The rule covered it and I applied it loosely.
 
 **2.**
-> *The post:*
+> *The post:* "Went back through the club results going back to 2012. Every single year the number of people who enter the spring marathon and don't start it sits between 18 and 23 percent. It's not a bad-luck year, it's the base rate."
 >
-> *Staff said / I said:*
+> *Staff said / I said:* `analysis` / `hot_take`
 >
-> *My call, and why:*
+> *My call, and why:* I labelled it `hot_take` because "It's not a bad-luck year, it's the base rate" sounded like a general claim, and I let it override the first two sentences. Staff is right. The 18 to 23 percent figure across every year since 2012 is the reason for "it's the base rate," so the fact is load-bearing under rule 1.
 >
-> *Which pile:*
+> *Which pile:* (a) The rule covered it and I applied it loosely.
+
+**3.**
+> *The post:* "The 10K route was remeasured in 2021 and came out 60 metres long. Everyone comparing PBs from before and after that is comparing two different races, which is about 12 seconds at club pace."
+>
+> *Staff said / I said:* `analysis` / `hot_take`
+>
+> *My call, and why:* I labelled it `hot_take` because it sounded like a general claim and not an analysis. Staff is right. The 2021 remeasurement and the 60 metres are why PBs from before and after aren't comparable, so the fact carries the argument (rule 1). I read it as a general claim without checking what supported it.
+>
+> *Which pile:* (a) The rule covered it and I applied it loosely.
+
+**4.**
+> *The post:* "Three of us ran the same session on the same day, different shoes, within 10 seconds of each other over 5 miles. I'm not saying shoes do nothing, but whatever they do was smaller than the noise between three people."
+>
+> *Staff said / I said:* `analysis` / `hot_take`
+>
+> *My call, and why:* I labelled it `hot_take` because the last sentence sounded like a general claim (or possibly a reaction). Staff is right. The result (within 10 seconds over 5 miles, different shoes) is the basis for "smaller than the noise," and rule 3 says that how it reads as a reaction doesn't matter when the post argues from a fact. A sample of three is small, and the rule doesn't say whether that counts, but rule 1 tests whether the fact does the work, not how strong it is.
+>
+> *Which pile:* (a) The rule covered it and I applied it loosely.
+
+**5.**
+> *The post:* "If you need a gel before 90 minutes you have a fuelling problem, not an energy problem."
+>
+> *Staff said / I said:* `hot_take` / `analysis`
+>
+> *My call, and why:* I labelled it `analysis` because I thought the number was the argument supporting why it's not an energy problem. Staff is right. "90 minutes" is a threshold inside the claim, and nothing is offered to support the claim. That's the case rule 1 describes as a `hot_take` with a number in it, like "times are down 3%" as decoration. I mistook a number in the claim for the evidence.
+>
+> *Which pile:* (a) The rule covered it and I applied it loosely.
+
+**6.**
+> *The post:* "Road racing peaked in about 2015 and everything since has been marketing."
+>
+> *Staff said / I said:* `hot_take` / `analysis`
+>
+> *My call, and why:* I labelled it `analysis` because I thought the conclusion ("everything since has been marketing") was derived from a checkable fact ("road racing peaked in about 2015"). Staff is right. "Peaked in about 2015" is itself the claim, and the post offers nothing for it. It has the same shape as staff's example "Super shoes have ruined racing, times are down 3% since 2017," which rule 1 labels `hot_take`. I treated a date inside the claim as a fact the conclusion came from.
+>
+> *Which pile:* (a) The rule covered it and I applied it loosely.
+
+**7.**
+> *The post:* "Track sessions are wasted on anyone running slower than 8 minute miles. You'd get more out of just running more."
+>
+> *Staff said / I said:* `hot_take` / `analysis`
+>
+> *My call, and why:* I labelled it `analysis` because I thought the conclusion was derived from the fact ("wasted on anyone running slower than 8 minute miles"). Staff is right. The 8-minute-mile threshold is part of the assertion, and no fact backs it up. The second sentence is another claim. It's the same mistake as posts 5 and 6.
+>
+> *Which pile:* (a) The rule covered it and I applied it loosely.
+
+**8.**
+> *The post:* "Four minutes off. FOUR. I've been chasing that time for two years and I'm sat on the kerb outside the finish just grinning at nothing."
+>
+> *Staff said / I said:* `reaction` / `analysis`
+>
+> *My call, and why:* I labelled it `analysis` because I treated the result as a fact the conclusion was derived from. Staff is right. The post reports what just happened to the writer and how it felt, with no argument and no conclusion drawn from "four minutes off." That fits rule 2's description of a `reaction`. I treated a time as evidence when it's just the event.
+>
+> *Which pile:* (a) The rule covered it and I applied it loosely.
+
+**9.**
+> *The post:* "First run back after eight weeks out. Two miles, slower than my warm-up used to be, and I don't care even slightly."
+>
+> *Staff said / I said:* `reaction` / `analysis`
+>
+> *My call, and why:* I labelled it `analysis` because the statements sounded like facts. Staff is right. The facts (eight weeks out, two miles) are the writer's own narrative, and "I don't care even slightly" is a feeling. Nothing is argued from them. I mistook facts in a story for facts in an argument.
+>
+> *Which pile:* (a) The rule covered it and I applied it loosely.
+
+**10.**
+> *The post:* "Wind was so bad on the out section I was leaning at about 20 degrees. Coming back felt like cheating."
+>
+> *Staff said / I said:* `reaction` / `analysis`
+>
+> *My call, and why:* I labelled it `analysis` because it captured the moment and led to a conclusion ("Coming back felt like cheating"). Staff is right. "About 20 degrees" is hyperbole and not a checkable fact, and "felt like cheating" is a feeling, not a conclusion derived from the wind. It's the writer's own experience, as rule 2 describes.
+>
+> *Which pile:* (a) The rule covered it and I applied it loosely.
+
+**11.**
+> *The post:* "Signed up. Card's charged, no going back, immediately regret everything."
+>
+> *Staff said / I said:* `reaction` / `hot_take`
+>
+> *My call, and why:* I labelled it `hot_take` because it sounded like a general claim. Staff is right. The post is about the writer's own feeling just after signing up, and it doesn't assert anything general about the world. Rule 2 says a `reaction` reports what happened to the writer and how it felt, and a `hot_take` makes a general claim.
+>
+> *Which pile:* (a) The rule covered it and I applied it loosely.
 
 **What the pattern in my disagreements tells me:**
+All 11 disagreements involve a number or a date, and I got posts with the same structure (a figure plus a conclusion) wrong in opposite directions. In posts 1 to 4, where the data was the reason for the conclusion, I called them `hot_take`. In posts 5 to 7, where the number was part of the claim, I called them `analysis`. In posts 8 to 10, I treated numbers in a personal story as evidence. The common mistake is that I noticed a number was present and didn't ask whether it was doing work in the argument, which is the test in rule 1. Post 11 is the exception, where I read a feeling as a general claim. All 11 fall in pile (a), meaning the staff rules covered each case and I applied them loosely, so the problem was my consistency and not a gap in the definitions. This suggests I may have applied a function-based rule by its surface features, which could also have happened in my own labelling, for example with bare product names or implied advice. That's a hypothesis, and I still need to test it against my own labels.
 
 
 
