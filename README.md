@@ -256,11 +256,11 @@ In seed 42, 5 real `experience` posts were called `other` and 0 real `other` pos
 
 | # | Criterion | Target | Verdict | How I decided |
 |---|---|---|---|---|
-| 1 |  |  |  |  |
-| 2 |  |  |  |  |
-| 3 |  |  |  |  |
-| 4 |  |  |  |  |
-| 5 |  |  |  |  |
+| 1 | Overall accuracy | at least 0.60 on every seed | MISSED | 0.633, 0.500, 0.533. The lowest is 0.500, so it holds on 1 of 3 seeds. |
+| 2 | `other` F1 | at least 0.60 on every seed | MISSED | 0.727, 0.545, 0.615. Seed 7 is below 0.60. |
+| 3 | `experience` F1 | at least 0.50 on every seed | MISSED | 0.000 on all three seeds. |
+| 4 | True `experience` predicted as `suggest` | at most 40% | MISSED | 28.6%, 71.4%, 57.1%. Only seed 42 holds. |
+| 5 | Agreement on staff posts | at least 70% | MISSED | 19 of 30 = 63%, two posts short of 21. |
 
 **Diagnoses**
 
@@ -273,7 +273,20 @@ In seed 42, 5 real `experience` posts were called `other` and 0 real `other` pos
      have that can tell a LABELLING problem from a MODEL problem, and this
      section is graded on whether you used it that way. -->
 
+**Criterion 3 (`experience` F1 of 0.000 on all three seeds), the central miss.**
+Partly my labelling, but that doesn't fully explain it. The model never predicted `experience` in any seed. I audited all 49 `experience` rows against my final rules and found 3 that break them: 2 sarcasm or irony rows that I labelled as the writer's opinion (rule 5 says `other`), and 1 row of opinion that also included the writer's own doubt or question, which I should have labelled `other`. All 3 are cold rows, which I labelled before my rules were final: 3 of the 8 cold `experience` rows, against 0 of the other 41. So the cold rows show rule drift. But 3 rows out of 49 are too few to explain a score of exactly 0.000, so labelling is a contributing cause and not a sufficient one. I can't rule out two other causes. With only about 34 `experience` rows in training, the model may not have enough examples. It may also be undertrained: its average confidence was about 0.39 to 0.41, close to the 0.33 of a three-way coin flip, and three epochs on 140 rows is only about 27 training steps.
 
+**Criterion 5 (agreement of 63%) as evidence.**
+All 11 of my staff disagreements were in pile (a): the rule covered the case and I applied it loosely. I treated a number in the post as evidence without asking whether it did work in the argument. This is the same mistake as in my own labels, where I judged by how a post sounded and not by the rule. It also bears on `experience` directly: staff labelled 10 posts `reaction`, the closest match to my `experience`, and I matched 6 of them (and all 6 of my `reaction` labels were right). The 4 I missed were posts where I chose an argument label, which mirrors a model that under-predicts the feeling-and-own-experience label. This is 10 posts and a different taxonomy, so it points in a direction and doesn't prove the cause.
+
+**Criterion 4 (`experience` predicted as `suggest`).**
+Mostly a consequence of criterion 3. In seed 42 the missed `experience` posts went mostly to `other` (5 of 7), and in seeds 7 and 2024 they went mostly to `suggest` (5 and 4). If the model had learned a boundary, the direction would repeat. It changes with the split, so the model is guessing between the other two labels for these posts. This is partly a labelling problem and partly a small-data problem, and I can't separate the two.
+
+**Criterion 2 (`other` F1 of 0.545 on seed 7).**
+Two causes. The `suggest` vs `other` boundary is weak: in seed 7, 6 of the 12 `other` posts were called `suggest`. Second, my audit found general claims inside `experience`, so the training data had general claims under both labels, which blurs `other`. The miss is also small (about 0.055 on a 12-post class), so some of it is noise from the test size.
+
+**Criterion 1 (accuracy).**
+Mostly a consequence of criterion 3. If `experience` is always wrong, accuracy is capped at 23 of 30, about 0.77, even when everything else is right. The 0.133 spread across seeds is 4 posts, so the test set is also too small for a stable measure.
 
 ---
 
