@@ -428,26 +428,28 @@ All 11 disagreements involve a number or a date, and I got posts with the same s
 
 ## The Improvement
 
-**What I changed:**
+**What I changed:** Epochs, from 3 to 10. Nothing else (learning rate 2e-5, batch size 16, 128 tokens, and `labels.csv` are unchanged).
 
-**Which diagnosis pointed at it:**
+**Which diagnosis pointed at it:** Criterion 3 (`experience` F1 of 0.000). My seed-42 training run showed 27 steps in total, a training loss of 1.043 and a validation loss of 1.047, against about 1.099 for random guessing, with validation loss and macro F1 still improving at epoch 3 (0.246 to 0.347). That means the model had barely learned anything when training stopped. I chose 10 epochs (about 90 steps) so it trains for much longer without going so far that it is likely to overfit about 139 training rows.
+
+**What I expected before running it:** I expect accuracy and `suggest` and `other` F1 to rise, and `experience` to rise above 0.000 on at least one seed, but I expect it to stay my weakest label because of the rule conflicts in my cold rows and its small size.
 
 ### Run Log — After
 
+Same data, same settings as the before run (3 epochs → 10 epochs only). Same seeds, same test splits. All numbers come from `results_three_seeds_after.json`.
+
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Overall accuracy | at least 0.60 on every seed | 0.800 | 0.733 | 0.733 | Met |
+| 2. `other` F1 | at least 0.60 on every seed | 0.833 | 0.692 | 0.692 | Met |
+| 3. `experience` F1 | at least 0.50 on every seed | 0.714 | 0.667 | 0.727 | Met |
+| 4. True `experience` predicted as `suggest` | at most 40% | 14.3% (1 of 7) | 0% (0 of 7) | 0% (0 of 7) | Met |
+| 5. Agreement on staff posts | at least 70% | 63% (19 of 30), unchanged, not re-measured | n/a | n/a | Missed |
 
 **Did it help, and how do I know:**
+Yes. Raising epochs from 3 to 10 lifted accuracy on every seed (0.633 → 0.800, 0.500 → 0.733, 0.533 → 0.733), and `experience` F1 went from 0.000 on all three seeds to 0.714, 0.667, and 0.727. Four of my five criteria moved from missed to met, and the one that didn't (criterion 5, agreement on staff posts) measures my own labelling, so retraining could not change it. The gain is larger than the 0.133 spread I saw across seeds before the change, it points the same way on all three seeds, and each seed's test set is the same before and after, since I did not touch the data. The model's confidence also became informative: before, its average confidence when right was about 0.40, near the 0.33 of a coin flip; after, it was 0.59 to 0.72, and its most confident third of predictions was right 90% to 100% of the time.
 
-<!-- If it didn't, say so. Relabelling that didn't help is a genuinely
-     interesting result and earns full credit. -->
-
-
+I chose 10 epochs once, before I saw any test results, based on my seed-42 training run (loss near chance and still falling after 27 steps). I did not try other values. The limits: each test set has only 30 posts, so one post is about 3 points, and my three seeds are three splits of the same 200 rows, so they overlap and aren't three independent tests. The remaining weakness is `experience` recall, which is 0.571 on seeds 7 and 2024 (3 of 7 `experience` posts were called `other` in both). That is the boundary my audit found weak, where I had labelled sarcasm and a general claim as `experience`.
 
 ---
 
@@ -483,16 +485,16 @@ learned:**
        [X] Baseline vs. Trained table, with your prediction written beforehand
        [X] Run Log — Before, five criteria across three seeds
        [X] Confusion matrix TYPED AS A MARKDOWN TABLE
-       [ ] A verdict on every criterion
-       [ ] A diagnosis for every miss, using the agreement report as evidence
-       [ ] Agreement Report with every disagreement adjudicated
-       [ ] One improvement, with Run Log — After
+       [X] A verdict on every criterion
+       [X] A diagnosis for every miss, using the agreement report as evidence
+       [X] Agreement Report with every disagreement adjudicated
+       [X] One improvement, with Run Log — After
        [ ] What's Still Broken
-       [ ] results_three_seeds_before.json, results_three_seeds_after.json,
+       [X] results_three_seeds_before.json, results_three_seeds_after.json,
            baseline_results.json and
            agreement_results.json committed
-       [ ] At least four new commits
-       [ ] The SAME repository URL as last unit
+       [X] At least four new commits
+       [X] The SAME repository URL as last unit
 
      Do not delete and recreate this repository.
      ═════════════════════════════════════════════════════════════════════ -->
