@@ -166,15 +166,21 @@ No label is above the 70% cap. `other` mixes several kinds of comment: informati
 
 - *What I asked for:* I sorted 40 sampled comments into four buckets from my reading (suggestion/advice, clarifying question, experience/empathy/agreement, disagreement) and asked Claude to check my tally.
 - *What came back:* Claude pointed out that my buckets mixed two things (what a comment does, and how it relates to the comment it replies to), that "disagreement" and "clarifying question" were too thin to measure (2 and 4 of 40), and that I had labelled similar comments inconsistently, such as three troubleshooting questions that went two different ways.
-- *What I changed:* I dropped the four buckets and tried a two-label version based on whether a comment names a specific detail. When I found that rule was just a keyword test, I switched to labelling by what a comment does, which gave `suggest`, `experience`, and `other`. 
+- *What I changed:* I dropped the four buckets and tried a two-label version based on whether a comment names a specific detail. When I found that rule was just a keyword test, I switched to labelling by what a comment does, which gave `suggest`, `experience`, and `other`.
 
 **Moment 2: Testing my rules on comments I hadn't used**
 
 - *What I asked for:* I wrote my label definitions and decision rules, picked 10 comments I had not looked at, labelled them, and asked Claude to label the same 10 using only my written rules, without seeing my answers.
 - *What came back:* We agreed on 8 of 10. The two disagreements were "Don't." (I labelled `other`, Claude `suggest`) and "Currently unavailable, 550 for 'newer' model." (I labelled `experience`, Claude `other`). Claude also showed that several rows in my 40 broke my own rules.
-- *What I changed:* I decided that "Don't." is a bare directive and should be `suggest`, like "Neither." and "Keep it in the box," and that the "Currently unavailable" comment is a market fact and should be `other`. I kept `experience` narrow rather than widening it. I then re-labelled the 40 under my final rules and wrote the soft-phrasing and question-form rules into my README. 
+- *What I changed:* I accepted Claude's argument on both: "Don't." is a bare directive and should be `suggest`, like "Neither." and "Keep it in the box," and the "Currently unavailable" comment is a market fact and should be `other`. I did not take Claude's suggestion to widen `experience`; I kept it narrow. I then re-labelled the 40 under my final rules and wrote the soft-phrasing and question-form rules into my README.
 
-**Pre-labelling disclosure:** I labelled 20 comments cold, using only my written definitions, with no AI or other tools (`note` = `cold`). I labelled another 50 myself (`note` = `dev`), but my rules were revised through discussion with Claude while I did, so those 50 shaped the definitions and I treat them separately from the cold rows. The remaining 130 comments were pre-labelled by Claude in three batches of 40, 40, and 50 (`note` = `prelabel`). For each batch I gave Claude my final definitions and decision rules. Claude returned a label and a confidence level for every row and flagged the ambiguous ones. I then read every comment, made my own call, and compared. I did not change the labels that Claude marked. I also used Claude to review my acceptance-criteria drafts and to suggest a range for each target, and to help draft parts of this README. The criteria, the numbers I committed, and the label definitions are my own decisions.
+**Moment 3: Using Claude to look for patterns in my errors (unit 6)**
+
+- *What I asked for:* After the agreement check, I pasted my 11 disagreements with staff and asked Claude to argue the other side of each. I also gave it my notebook and asked it to help read my training run.
+- *What came back:* Claude pointed out that 10 of the 11 disagreements involved a number or date and that I had gone wrong in opposite directions (calling data-backed posts `hot_take`, and posts with a number inside the claim `analysis`). It flagged `experience` rows that broke my own rules (sarcasm, general claims). From the loss table saved in my notebook it showed that my model was close to chance (1.047 against about 1.099) after only 27 steps and still improving.
+- *What I changed:* I wrote my own reasons for each disagreement, then used Claude's drafts of the calls and pile assignments after checking them against the staff rules. I audited my 49 `experience` rows myself and found 3 conflicts, all in my cold rows. Claude laid out three possible improvements; I picked changing epochs, and picked 10 from the range it suggested, because it gave much more training than 27 steps without going so far that 139 rows were likely to overfit.
+
+**Pre-labelling and drafting disclosure:** I labelled 20 comments cold, using only my written definitions, with no AI or other tools (`note` = `cold`). I labelled another 50 myself (`note` = `dev`), but my rules were revised through discussion with Claude while I did, so those 50 shaped the definitions and I treat them separately from the cold rows. The remaining 130 comments were pre-labelled by Claude in three batches of 40, 40, and 50 (`note` = `prelabel`). For each batch I gave Claude my final definitions and decision rules. Claude returned a label and a confidence level for every row and flagged the ambiguous ones. I then read every comment, made my own call, and compared. I did not change the labels that Claude marked. Beyond labelling, Claude drafted much of the wording in this README: the taxonomy text, the dataset section, the hard cases, the criteria reasons, the adjudication of my disagreements with staff, and the diagnoses. I supplied the facts, decisions, and counts and edited the results, and the numbers in my acceptance criteria are my own picks from ranges Claude suggested. The label definitions and decision rules are my decisions, but Claude helped phrase them.
 
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 
@@ -455,13 +461,14 @@ I chose 10 epochs once, before I saw any test results, based on my seed-42 train
 
 ## What's Still Broken
 
-<!-- For each criterion still missed: what you'd do, and why you stopped. -->
+**Criterion 5 (agreement on staff posts, 63% against a target of 70%): still missed.**
+Retraining can't change it, because it measures how consistently I applied someone else's written rules, and I didn't re-label the staff set. What I'd do next: go back through my own 200 labels with the same fix the staff check pointed at, asking what the rule says before looking at what the post sounds like or whether it has a number in it. That would start with the three cold `experience` rows I found breaking my rules (two sarcasm or irony rows and one opinion row with the writer's doubt), and then a second reader labelling a sample of my rows from my README alone. I stopped because [your real reason, e.g. the milestone was about measuring and I had a limited time budget]. I did not re-label the staff posts after seeing the answer key, because that would make the number meaningless.
 
+**Met, but not solid.**
+Criteria 1 to 4 are met on all three seeds, but each seed has a test set of only 30 posts, so one post is about 3 points of accuracy. The three seeds are also three splits of the same 200 rows, so they overlap and are not three independent tests. The weakest result left is `experience` recall: on seeds 7 and 2024 it was 0.571 (3 of 7 `experience` posts were called `other`). `other` also has the widest spread across seeds (0.833 on seed 42 against 0.692 on the other two). With more time I'd collect more `experience` and `other` posts and re-test, instead of tuning anything further on 30 test posts.
 
-
-**The gap between what I meant my labels to capture and what the model
-learned:**
-<!-- Two sentences. Your confusion matrix is the evidence. -->
+**The gap between what I meant my labels to capture and what the model learned:**
+I meant `suggest` to capture comments that point OP to something to do, `experience` the writer's own situation or a sincere reaction, and `other` everything else. The model learned to separate `suggest` from `experience` well (on seeds 7 and 2024 there were no confusions between them), but not to separate either from `other`: on those seeds every error involved `other`, including 3 of 7 true `experience` posts called `other`, which fits `other` being a mix of jokes, bare product names, and general claims, and my audit finding sarcasm and general claims labelled as `experience`.
 
 
 
@@ -489,7 +496,7 @@ learned:**
        [X] A diagnosis for every miss, using the agreement report as evidence
        [X] Agreement Report with every disagreement adjudicated
        [X] One improvement, with Run Log — After
-       [ ] What's Still Broken
+       [X] What's Still Broken
        [X] results_three_seeds_before.json, results_three_seeds_after.json,
            baseline_results.json and
            agreement_results.json committed
