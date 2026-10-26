@@ -212,34 +212,38 @@ These are one split of 30 posts, and one post is about 3 points of accuracy, so 
 
 ## Run Log — Before
 
-<!-- Five criteria across three seeds. The notebook's section 6 prints the
-     spread table; the Target and Verdict columns are yours. -->
+Trained on Apple Silicon GPU (`mps`), torch 2.14.1, `distilbert-base-uncased`, defaults (3 epochs, lr 2e-5, batch 16, 128 tokens). Each seed has a different 30-post test split. All numbers come from `results_three_seeds_before.json`.
 
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Overall accuracy | at least 0.60 on every seed | 0.633 | 0.500 | 0.533 | Missed (holds on 1 of 3 seeds) |
+| 2. `other` F1 | at least 0.60 on every seed | 0.727 | 0.545 | 0.615 | Missed (seed 7 is 0.545) |
+| 3. `experience` F1 | at least 0.50 on every seed | 0.000 | 0.000 | 0.000 | Missed (0.000 on all seeds) |
+| 4. True `experience` predicted as `suggest` | at most 40% | 28.6% (2 of 7) | 71.4% (5 of 7) | 57.1% (4 of 7) | Missed (holds on 1 of 3 seeds) |
+| 5. Agreement on staff posts | at least 70% | not measured yet | not measured yet | not measured yet | Pending (staff agreement check) |
 
-### Confusion matrix
+### Spread across seeds
 
-<!-- ⚠️ TYPED AS A MARKDOWN TABLE. The notebook prints one ready to paste.
-     An image of a matrix earns nothing. -->
+| Measure | Seed 42 | Seed 7 | Seed 2024 | Spread |
+|---|---|---|---|---|
+| Overall accuracy | 0.633 | 0.500 | 0.533 | 0.133 |
+| Macro F1 | 0.476 | 0.375 | 0.403 | 0.100 |
+| F1 — `suggest` | 0.700 | 0.581 | 0.593 | 0.119 |
+| F1 — `experience` | 0.000 | 0.000 | 0.000 | 0.000 |
+| F1 — `other` | 0.727 | 0.545 | 0.615 | 0.182 |
 
-| true \ predicted |  |  |  |
+Accuracy moved 0.133 across seeds, more than 10 points. That is 4 posts out of 30 (19, 15, and 16 correct), so my dataset is too small for a stable measure, and a single seed would have given me a misleading picture. Seed 42 was the friendliest draw.
+
+### Confusion matrix (seed 42)
+
+| true \ predicted | suggest | experience | other |
 |---|---|---|---|
-| **** |  |  |  |
-| **** |  |  |  |
-| **** |  |  |  |
+| **suggest** | 7 | 0 | 4 |
+| **experience** | 2 | 0 | 5 |
+| **other** | 0 | 0 | 12 |
 
 **My biggest off-diagonal number, and what it means:**
-<!-- Not "the model made mistakes" — WHICH boundary it didn't learn, and which
-     direction. "7 real analysis posts were called hot_take and only 3 went the
-     other way" is a direction, not just an error rate. -->
-
-
+In seed 42, 5 real `experience` posts were called `other` and 0 real `other` posts were called `experience`, so the model leans toward `other` on this pair, and it never predicted `experience` in any of the three seeds, which means it did not learn that label.
 
 ---
 
@@ -366,22 +370,22 @@ learned:**
 
      SUBMISSION CHECKLIST — unit 5
 
-       [ ] criteria.md has five numbered criteria, each naming a NUMBER
-       [ ] Each has a reason underneath tied to your data or taxonomy
-       [ ] labels.csv: at least 150 rows, text/label/note, ONE file not split
-       [ ] No label above 70%
-       [ ] All five unit 5 sections have real content
-       [ ] Label Taxonomy includes the decision rule for your hardest boundary
-       [ ] The Dataset includes three hard cases
-       [ ] results.json and test_split.csv committed (the notebook does this)
-       [ ] At least four new commits
-       [ ] Repository URL submitted — WRITE IT DOWN
+       [X] criteria.md has five numbered criteria, each naming a NUMBER
+       [X] Each has a reason underneath tied to your data or taxonomy
+       [X] labels.csv: at least 150 rows, text/label/note, ONE file not split
+       [X] No label above 70%
+       [X] All five unit 5 sections have real content
+       [X] Label Taxonomy includes the decision rule for your hardest boundary
+       [X] The Dataset includes three hard cases
+       [X] results.json and test_split.csv committed (the notebook does this)
+       [X] At least four new commits
+       [X] Repository URL submitted — WRITE IT DOWN
 
      SUBMISSION CHECKLIST — unit 6
 
-       [ ] Baseline vs. Trained table, with your prediction written beforehand
-       [ ] Run Log — Before, five criteria across three seeds
-       [ ] Confusion matrix TYPED AS A MARKDOWN TABLE
+       [X] Baseline vs. Trained table, with your prediction written beforehand
+       [X] Run Log — Before, five criteria across three seeds
+       [X] Confusion matrix TYPED AS A MARKDOWN TABLE
        [ ] A verdict on every criterion
        [ ] A diagnosis for every miss, using the agreement report as evidence
        [ ] Agreement Report with every disagreement adjudicated
