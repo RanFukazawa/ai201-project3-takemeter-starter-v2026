@@ -1,0 +1,184 @@
+{
+  "model": "facebook/bart-large-mnli",
+  "n": 30,
+  "seed": 42,
+  "held_out": true,
+  "used_definitions": true,
+  "scores": {
+    "n": 30,
+    "accuracy": 0.36666666666666664,
+    "f1_macro": 0.17886178861788615,
+    "per_label": {
+      "experience": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7
+      },
+      "other": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 12
+      },
+      "suggest": {
+        "precision": 0.36666666666666664,
+        "recall": 1.0,
+        "f1": 0.5365853658536585,
+        "support": 11
+      }
+    }
+  },
+  "predictions": [
+    {
+      "text": "Industry predictors are saying 2030 at the very earliest. OP's friend just doesn't realise how bad things are",
+      "gold": "other",
+      "predicted": "suggest"
+    },
+    {
+      "text": "I had 4k ips and changed to 1440p 240 qd oled best decision",
+      "gold": "experience",
+      "predicted": "suggest"
+    },
+    {
+      "text": "Avoid the i9s, don't buy second-hand, run the latest BIOS and you will be fine. If you look at old benchmarks just subtract ~10% to see what the actual performance will be like. They're still pretty performant chips that will handle every game on the planet fairly comfortably.",
+      "gold": "suggest",
+      "predicted": "suggest"
+    },
+    {
+      "text": "Winter means different things in different places. No one is able to offer advice without location climate information.",
+      "gold": "other",
+      "predicted": "suggest"
+    },
+    {
+      "text": "Big if's here, but if you can stretch it and you're near a MC, I'd try to snag a 9070xt. Still priced at low 700's, they've announced an msrp bump, and for buying new it's pretty much as good as it gets for a while.",
+      "gold": "suggest",
+      "predicted": "suggest"
+    },
+    {
+      "text": "The 3060 is weaker to the point it won't be able to run the games that need the extra vram anyways. I would go 5060 no question.",
+      "gold": "suggest",
+      "predicted": "suggest"
+    },
+    {
+      "text": "undervolting?",
+      "gold": "suggest",
+      "predicted": "suggest"
+    },
+    {
+      "text": "Have a dehumidifier in their snd and you should be fine",
+      "gold": "suggest",
+      "predicted": "suggest"
+    },
+    {
+      "text": "Because it's not as easy to make as 16 and 32. They usually make it based on the binay/base 2 numbering system. So I goes 1 2 4 8 16 32 64....",
+      "gold": "other",
+      "predicted": "suggest"
+    },
+    {
+      "text": "Walmart has a 2tb Western digital on rollback. Check in store.",
+      "gold": "suggest",
+      "predicted": "suggest"
+    },
+    {
+      "text": "I'll take a different approach than a lot of the commenters. Who would make them. The companies making ram are essentially selling out their inventory to AI data centers. We are getting just the leftovers hence the insane prices.",
+      "gold": "other",
+      "predicted": "suggest"
+    },
+    {
+      "text": "Condensation kills electronics. Yes, keeping your PC in a sub-freezing environment with freeze-thaw-heated up when powered on cycles happening could kill your PC.",
+      "gold": "other",
+      "predicted": "suggest"
+    },
+    {
+      "text": "Good thing you researched this first huh",
+      "gold": "experience",
+      "predicted": "suggest"
+    },
+    {
+      "text": "I upgraded my 10 yr old PC earlier this year; I wasn't planning on it until maybe next year. It was freaking expensive but now the ram has doubled since! I bit the bullet and its going to get a lot worse before it gets better",
+      "gold": "experience",
+      "predicted": "suggest"
+    },
+    {
+      "text": "DISM.exe /Online /Cleanup-image /Restorehealth Sfc/scannow Run it with admin privileges. Windows 11 sucks, run these commands regularly. Update all your drivers, including your optional drivers. Do not forget to install 3rd party driver apps like Nvidia app or Samsung magician. Optimize your storage, and verify your drive health.",
+      "gold": "suggest",
+      "predicted": "suggest"
+    },
+    {
+      "text": "Currently unavailable, 550 for \u201cnewer\u201d model.",
+      "gold": "other",
+      "predicted": "suggest"
+    },
+    {
+      "text": "I am also an \u201cupgrade once a decade\u201d guy and I\u2019ve been looking into rtx 5080 and 9070 xt. The connector of the 5080 is really scaring me and looks like might mess up my \u201cupgrade ten years later\u201d plan. Think I\u2019m gonna settle for 9070 xt.",
+      "gold": "experience",
+      "predicted": "suggest"
+    },
+    {
+      "text": "11th & 12th Gen CPU's are fast, super solid options, AMD is 'cool' but 11/12th gen intel's are super solid.",
+      "gold": "other",
+      "predicted": "suggest"
+    },
+    {
+      "text": "Even this doesn't prevent it.",
+      "gold": "other",
+      "predicted": "suggest"
+    },
+    {
+      "text": "If you\u2019re near a Microcenter you should be able to build a 7500x3d machine with a 9070 or 9070xt for that budget. That would easily carry you for the next 5 years.",
+      "gold": "suggest",
+      "predicted": "suggest"
+    },
+    {
+      "text": "Prices aren't coming down. Maybe 2029.",
+      "gold": "other",
+      "predicted": "suggest"
+    },
+    {
+      "text": "No idea why people's first reaction is dust/temps. It's more likely windows, new drivers or some other software is causing this.",
+      "gold": "other",
+      "predicted": "suggest"
+    },
+    {
+      "text": "Wait till you need what was a $200 20tb drive...",
+      "gold": "other",
+      "predicted": "suggest"
+    },
+    {
+      "text": "What games you playing? I have 0 issues playing CS2 on 1 ram stick of 16gb.",
+      "gold": "experience",
+      "predicted": "suggest"
+    },
+    {
+      "text": "I\u2019d look at the arrangement of your fans. If you more fans \u201csucking in\u201d you\u2019ll have positive pressure - this will help keep dust out. On the other hand if you more fans \u201cblowing out\u201d this means negative pressure so you end up sucking in dust (through gaps in the case as well)",
+      "gold": "suggest",
+      "predicted": "suggest"
+    },
+    {
+      "text": "It\u2019s the worst time\u2026 so far",
+      "gold": "other",
+      "predicted": "suggest"
+    },
+    {
+      "text": "The 5700x3D is about 10% slower than the 5800x3D but you paid 33% less. Good deal.",
+      "gold": "experience",
+      "predicted": "suggest"
+    },
+    {
+      "text": "Check your temps and also your storage. Also check your background tasks, could be something hogging resurces",
+      "gold": "suggest",
+      "predicted": "suggest"
+    },
+    {
+      "text": "I got my 5070 at 489. Theres no way I'd buy it for 800 let alone a ti for 1300. That said my card plays on ultra 1440 on all my games.",
+      "gold": "experience",
+      "predicted": "suggest"
+    },
+    {
+      "text": "i think you can find a 9070 for 600$. Otherwise 9060xt 16GB, 9070 GRE or 4070 super",
+      "gold": "suggest",
+      "predicted": "suggest"
+    }
+  ]
+}

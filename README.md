@@ -185,25 +185,28 @@ No label is above the 70% cap. `other` mixes several kinds of comment: informati
 
 ## Baseline vs. Trained
 
-<!-- Both models on the same posts. `python baseline.py --trained results.json`
-     prints this table for you. -->
+All three columns are scored on the same 30 posts (`test_split.csv`, seed 42). "Baseline (definitions)" is the zero-shot model prompted with my label definitions. "Baseline (bare names)" is the same model given only the label names. The bare-names run is the stronger baseline, so it is the one I compare against below.
 
-| Measure | Baseline | Trained | Difference |
-|---|---|---|---|
-| Overall accuracy |  |  |  |
-| Macro F1 |  |  |  |
-| F1 — `label_one` |  |  |  |
-| F1 — `label_two` |  |  |  |
+| Measure | Baseline (definitions) | Baseline (bare names) | Trained | Trained minus bare names |
+|---|---|---|---|---|
+| Overall accuracy | 0.367 | 0.467 | 0.633 | +0.167 |
+| Macro F1 | 0.179 | 0.386 | 0.476 | +0.089 |
+| F1 — `experience` | 0.000 | 0.200 | 0.000 | -0.200 |
+| F1 — `other` | 0.000 | 0.353 | 0.727 | +0.374 |
+| F1 — `suggest` | 0.537 | 0.606 | 0.700 | +0.094 |
 
-**What I predicted before I looked:**
-<!-- Milestone 1 asks you to write this BEFORE seeing the trained numbers. A
-     prediction made afterwards isn't one. -->
+**What I predicted (and when):**
+
+- **Prediction 1 (seed-42 run):** The trained model will beat the baseline on `other` and on overall accuracy, because the baseline with definitions called every post `suggest`. I do not expect it to beat the baseline on `experience`. *(Written after I had already seen the seed-42 results in the notebook output, so this is informed by that run and not a blind prediction.)*
+- **Prediction 2 (three-seed run, written before running section 6):** `experience` will stay my weakest label and will vary more between seeds than `suggest` or `other`, because it has only about 7 test rows. I expect the trained model's accuracy to stay above the bare-names baseline's 0.467 on every seed. This is a rough comparison because the baseline was only scored on the seed-42 split.
 
 **What the gap actually means:**
-<!-- If the baseline matched your trained model, your fine-tuning added
-     nothing — and that is a real finding, not a failure. Say it plainly. -->
 
+Fine-tuning added something on overall accuracy. The trained model got 19 of 30 posts right against 14 for the bare-names baseline, a gain of five posts. Most of the gain is on `other` (0.353 to 0.727), with a smaller gain on `suggest`. The much bigger gap against the definitions run (0.367) mostly shows how badly that run collapsed, since it called every post `suggest`. My definitions were not worth anything to this model: the bare-names run scored three posts better, and my guess is that scoring each label independently suits a function-based label like "anything that is neither of the above" badly. I haven't tested that guess.
 
+The training added nothing on `experience`. The trained model's F1 is 0.000, below the bare-names baseline's 0.200, and its confusion matrix shows it never predicted `experience` for any of the 30 posts. Five of the seven `experience` posts went to `other` and two to `suggest`. (I don't yet know why. It could be the small number of `experience` training rows, a boundary my labels didn't capture consistently, or something about the model, and I haven't tested any of these. The three-seed run, the confusion matrix, and the agreement check are what I'll use to find out.)
+
+These are one split of 30 posts, and one post is about 3 points of accuracy, so I treat the +0.167 as suggestive and not settled. The three-seed run will show whether it holds.
 
 ---
 
